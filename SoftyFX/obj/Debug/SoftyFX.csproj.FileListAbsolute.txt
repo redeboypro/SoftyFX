@@ -1,0 +1,6 @@
+C:\Users\redeb\RiderProjects\SoftyFX\SoftyFX\bin\Debug\SoftyFX.dll
+C:\Users\redeb\RiderProjects\SoftyFX\SoftyFX\bin\Debug\SoftyFX.pdb
+C:\Users\redeb\RiderProjects\SoftyFX\SoftyFX\obj\Debug\SoftyFX.csproj.AssemblyReference.cache
+C:\Users\redeb\RiderProjects\SoftyFX\SoftyFX\obj\Debug\SoftyFX.csproj.CoreCompileInputs.cache
+C:\Users\redeb\RiderProjects\SoftyFX\SoftyFX\obj\Debug\SoftyFX.dll
+C:\Users\redeb\RiderProjects\SoftyFX\SoftyFX\obj\Debug\SoftyFX.pdb

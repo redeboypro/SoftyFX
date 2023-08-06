@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\redeb\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\redeb\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_SoftyFX.-1689760079.00" t="ExcludeRecursive" />
+    <e p="C:\Users\redeb\RiderProjects\SoftyFX" t="IncludeFlat">
+      <e p="Demo" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Demo.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="SoftyFX" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Graphics" t="Include">
+          <e p="DrawMode.cs" t="Include" />
+          <e p="Software2D.cs" t="Include" />
+          <e p="Software3D.cs" t="Include" />
+        </e>
+        <e p="Mathematics" t="Include">
+          <e p="Matrix4x4.cs" t="Include" />
+          <e p="RGB.cs" t="Include" />
+          <e p="Triangle.cs" t="Include" />
+          <e p="Vector2Int.cs" t="Include" />
+          <e p="Vector3.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="SoftyContext.cs" t="Include" />
+        <e p="SoftyFX.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="SoftyFX.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

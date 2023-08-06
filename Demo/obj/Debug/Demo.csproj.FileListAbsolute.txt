@@ -1,0 +1,10 @@
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\bin\Debug\Demo.exe
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\bin\Debug\Demo.pdb
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\obj\Debug\Demo.csproj.AssemblyReference.cache
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\obj\Debug\Demo.csproj.SuggestedBindingRedirects.cache
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\obj\Debug\Demo.csproj.CoreCompileInputs.cache
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\obj\Debug\Demo.exe
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\obj\Debug\Demo.pdb
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\bin\Debug\SoftyFX.dll
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\bin\Debug\SoftyFX.pdb
+C:\Users\redeb\RiderProjects\SoftyFX\Demo\obj\Debug\Demo.csproj.CopyComplete
