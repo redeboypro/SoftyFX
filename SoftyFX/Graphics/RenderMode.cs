@@ -1,6 +1,6 @@
 ﻿namespace SoftyFX.Graphics
 {
-    public enum DrawMode
+    public enum RenderMode
     {
         Points,
         Lines,

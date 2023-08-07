@@ -38,9 +38,9 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Graphics\DrawMode.cs" />
-        <Compile Include="Graphics\Software2D.cs" />
-        <Compile Include="Graphics\Software3D.cs" />
+        <Compile Include="Common\Wavefront.cs" />
+        <Compile Include="Graphics\RenderMode.cs" />
+        <Compile Include="Graphics\SoftyRenderer.cs" />
         <Compile Include="Mathematics\Matrix4x4.cs" />
         <Compile Include="Mathematics\Rgb.cs" />
         <Compile Include="Mathematics\Triangle.cs" />
@@ -48,6 +48,7 @@
         <Compile Include="Mathematics\Vector3.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="SoftyContext.cs" />
+        <Compile Include="Time\Time.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

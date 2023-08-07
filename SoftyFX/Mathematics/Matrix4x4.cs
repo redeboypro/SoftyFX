@@ -4,22 +4,20 @@ namespace SoftyFX.Mathematics
 {
     public struct Matrix4x4
     {
-        public static readonly Matrix4x4 Identity = new Matrix4x4
-        {
-            M = new float[,]
-            {
-                {1, 0, 0, 0},
-                {0, 1, 0, 0},
-                {0, 0, 1, 0},
-                {0, 0, 0, 1}
-            }
-        };
+        public const int Empty = 0;
+        public const int Identity = 1;
         
         public float[,] M;
 
-        public Matrix4x4(float[,] data)
+        public Matrix4x4(int matrixMode)
         {
-            M = data;
+            M = new float[,]
+            {
+                {matrixMode, 0, 0, 0},
+                {0, matrixMode, 0, 0},
+                {0, 0, matrixMode, 0},
+                {0, 0, 0, matrixMode}
+            };
         }
 
         public void Project(float near, float far, float fov, float aspectRatio)
@@ -95,7 +93,7 @@ namespace SoftyFX.Mathematics
 
         public static Matrix4x4 operator *(Matrix4x4 left, Matrix4x4 right)
         {
-            var matrix = new Matrix4x4();
+            var matrix = new Matrix4x4(Identity);
             for (var col = 0; col < 4; col++)
             {
                 for (var raw = 0; raw < 4; raw++)
