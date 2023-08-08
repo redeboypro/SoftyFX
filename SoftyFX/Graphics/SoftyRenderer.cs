@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SoftyFX.Mathematics;
 
@@ -6,8 +7,10 @@ namespace SoftyFX.Graphics
 {
     public static class SoftyRenderer
     {
-        public static void DrawTriangles(IEnumerable<Triangle> triangles, Matrix4x4 transformation, Rgb color, RenderMode drawMode = RenderMode.Lines)
+        public static void DrawTriangles(IEnumerable<Triangle> triangles, Vector3 eye, Matrix4x4 transformation, Matrix4x4 projection, Rgb color, RenderMode drawMode = RenderMode.Lines)
         {
+            var depthSortedTriangles = new List<Triangle>();
+            
             foreach (var triangle in triangles)
             {
                 Triangle transformedTriangle;
@@ -15,33 +18,60 @@ namespace SoftyFX.Graphics
                 transformedTriangle.A = triangle.A * transformation;
                 transformedTriangle.B = triangle.B * transformation;
                 transformedTriangle.C = triangle.C * transformation;
-
-                transformedTriangle.A.X += 1.0f;
-                transformedTriangle.A.Y += 1.0f;
                 
-                transformedTriangle.B.X += 1.0f;
-                transformedTriangle.B.Y += 1.0f;
+                var edge1 = transformedTriangle[1] - transformedTriangle[0];
+                var edge2 = transformedTriangle[2] - transformedTriangle[0];
                 
-                transformedTriangle.C.X += 1.0f;
-                transformedTriangle.C.Y += 1.0f;
-                
-                SoftyContext.GetWindowSize(out var width, out var height);
+                Vector3 normal;
+                normal.X = edge1.Y * edge2.Z - edge1.Z * edge2.Y;
+                normal.Y = edge1.Z * edge2.X - edge1.X * edge2.Z;
+                normal.Z = edge1.X * edge2.Y - edge1.Y * edge2.X;
 
-                transformedTriangle.A.X *= 0.5f * width;
-                transformedTriangle.A.Y *= 0.5f * height;
+                var length = (float) Math.Sqrt(normal.X * normal.X + normal.Y * normal.Y + normal.Z * normal.Z);
+                normal /= length;
 
-                transformedTriangle.B.X *= 0.5f * width;
-                transformedTriangle.B.Y *= 0.5f * height;
-
-                transformedTriangle.C.X *= 0.5f * width;
-                transformedTriangle.C.Y *= 0.5f * height;
-
-                DrawPolygon(new []
+                if (normal.X * (transformedTriangle.A.X - eye.X) +
+                    normal.Y * (transformedTriangle.A.Y - eye.Y) +
+                    normal.Z * (transformedTriangle.A.Z - eye.Z) < 0)
                 {
-                    transformedTriangle.A.Xy,
-                    transformedTriangle.B.Xy,
-                    transformedTriangle.C.Xy
-                }, color);
+                    transformedTriangle.A *= projection;
+                    transformedTriangle.B *= projection;
+                    transformedTriangle.C *= projection;
+                    
+                    transformedTriangle.A.X += 1.0f;
+                    transformedTriangle.A.Y += 1.0f;
+
+                    transformedTriangle.B.X += 1.0f;
+                    transformedTriangle.B.Y += 1.0f;
+
+                    transformedTriangle.C.X += 1.0f;
+                    transformedTriangle.C.Y += 1.0f;
+
+                    SoftyContext.GetWindowSize(out var width, out var height);
+
+                    transformedTriangle.A.X *= 0.5f * width;
+                    transformedTriangle.A.Y *= 0.5f * height;
+
+                    transformedTriangle.B.X *= 0.5f * width;
+                    transformedTriangle.B.Y *= 0.5f * height;
+
+                    transformedTriangle.C.X *= 0.5f * width;
+                    transformedTriangle.C.Y *= 0.5f * height;
+                    
+                    depthSortedTriangles.Add(transformedTriangle);
+                }
+            }
+            
+            depthSortedTriangles.Sort((triangle1, triangle2) => triangle1.CompareTo(triangle2));
+
+            foreach (var triangle in depthSortedTriangles)
+            {
+                DrawPolygon(new[]
+                {
+                    triangle.A.Xy,
+                    triangle.B.Xy,
+                    triangle.C.Xy
+                }, color, drawMode);
             }
         }
         
@@ -63,25 +93,35 @@ namespace SoftyFX.Graphics
                         DrawBresenhamLine(vertices[i - 1], vertices[i], color);
                     DrawBresenhamLine(vertices.First(), vertices.Last(), color);
                     break;
+                case RenderMode.Solid:
+                    var count = vertices.Length * 2;
+                    var resultVertices = new int[count];
+                    var vertexIndex = 0;
+                    for (var i = 1; i < count; i += 2)
+                    {
+                        var vertex = vertices[vertexIndex];
+                        resultVertices[i - 1] = vertex.X;
+                        resultVertices[i] = vertex.Y;
+                        vertexIndex++;
+                    }
+                    SoftyContext.FillPolygon(resultVertices, resultVertices.Length, color.R, color.G, color.B);
+                    break;
             }
         }
 
         public static void DrawPoint(Vector2Int point, Rgb color)
         {
-            SoftyContext.GetWindowSize(out _, out var height);
-            SoftyContext.DrawPoint(point.X, height - point.Y, color.R, color.G, color.B);
+            SoftyContext.DrawPoint(point.X, point.Y, color.R, color.G, color.B);
         }
 
         public static void DrawLine(Vector2Int a, Vector2Int b, Rgb color)
         {
-            SoftyContext.GetWindowSize(out _, out var height);
-            SoftyContext.DrawLine(a.X, height - a.Y, b.X, height - b.Y, color.R, color.G, color.B);
+            SoftyContext.DrawLine(a.X, a.Y, b.X, b.Y, color.R, color.G, color.B);
         }
 
         public static void DrawBresenhamLine(Vector2Int a, Vector2Int b, Rgb color)
         {
-            SoftyContext.GetWindowSize(out _, out var height);
-            SoftyContext.DrawBresenhamLine(a.X, height - a.Y, b.X, height - b.Y, color.R, color.G, color.B);
+            SoftyContext.DrawBresenhamLine(a.X, a.Y, b.X, b.Y, color.R, color.G, color.B);
         }
     }
 }

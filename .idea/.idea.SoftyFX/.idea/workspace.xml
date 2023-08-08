@@ -23,10 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd919e38-fa35-44f6-ae14-16d926f75850" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SoftyFX/Common/Wavefront.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SoftyFX/Graphics/RenderMode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SoftyFX/Graphics/SoftyRenderer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SoftyFX/Time/Time.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SoftyFX/Graphics/Camera.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SoftyFX/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SoftyFX/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SoftyFX/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SoftyFX/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Demo/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/Program.cs" afterDir="false" />
@@ -38,10 +35,12 @@
       <change beforePath="$PROJECT_DIR$/Demo/obj/Debug/Demo.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/obj/Debug/Demo.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Demo/obj/Debug/Demo.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/obj/Debug/Demo.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Demo/obj/Debug/Demo.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/obj/Debug/Demo.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SoftyFX/Graphics/DrawMode.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SoftyFX/Graphics/Software2D.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SoftyFX/Graphics/Software3D.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SoftyFX/Common/Wavefront.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/Common/Wavefront.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SoftyFX/Graphics/RenderMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/Graphics/RenderMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SoftyFX/Graphics/SoftyRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/Graphics/SoftyRenderer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SoftyFX/Mathematics/Matrix4x4.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/Mathematics/Matrix4x4.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SoftyFX/Mathematics/Triangle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/Graphics/Triangle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SoftyFX/SoftyContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/SoftyContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SoftyFX/SoftyFX.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/SoftyFX.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SoftyFX/bin/Debug/SoftyFX.dll" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/bin/Debug/SoftyFX.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SoftyFX/bin/Debug/SoftyFX.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/SoftyFX/bin/Debug/SoftyFX.pdb" afterDir="false" />
@@ -77,7 +76,6 @@
         <option value="$PROJECT_DIR$/SoftyFX/Graphics/Vector3F.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Graphics/Vector2Int.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Graphics/Vector3.cs" />
-        <option value="$PROJECT_DIR$/SoftyFX/Graphics/Triangle.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Graphics/Matrix4x4.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Math/Matrix4x4.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Math/Triangle.cs" />
@@ -91,15 +89,17 @@
         <option value="$PROJECT_DIR$/SoftyFX/Mathematics/RGB.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Mathematics/Triangle.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Mathematics/Rgb.cs" />
-        <option value="$PROJECT_DIR$/SoftyFX/SoftyContext.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Graphics/Software3D.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Graphics/Software2D.cs" />
-        <option value="$PROJECT_DIR$/SoftyFX/Graphics/RenderMode.cs" />
-        <option value="$PROJECT_DIR$/SoftyFX/Common/Wavefront.cs" />
-        <option value="$PROJECT_DIR$/SoftyFX/Graphics/SoftyRenderer.cs" />
-        <option value="$PROJECT_DIR$/SoftyFX/Mathematics/Matrix4x4.cs" />
         <option value="$PROJECT_DIR$/SoftyFX/Time/Time.cs" />
+        <option value="$PROJECT_DIR$/SoftyFX/Mathematics/Matrix4x4.cs" />
+        <option value="$PROJECT_DIR$/SoftyFX/Common/Wavefront.cs" />
+        <option value="$PROJECT_DIR$/SoftyFX/Graphics/Camera.cs" />
+        <option value="$PROJECT_DIR$/SoftyFX/Graphics/RenderMode.cs" />
         <option value="$PROJECT_DIR$/Demo/Program.cs" />
+        <option value="$PROJECT_DIR$/SoftyFX/SoftyContext.cs" />
+        <option value="$PROJECT_DIR$/SoftyFX/Graphics/SoftyRenderer.cs" />
+        <option value="$PROJECT_DIR$/SoftyFX/Graphics/Triangle.cs" />
       </list>
     </option>
   </component>
@@ -144,7 +144,9 @@
       <updated>1691319728613</updated>
       <workItem from="1691319731638" duration="14040000" />
       <workItem from="1691342212786" duration="2069000" />
-      <workItem from="1691374404576" duration="8591000" />
+      <workItem from="1691374404576" duration="8687000" />
+      <workItem from="1691408394675" duration="4547000" />
+      <workItem from="1691480280432" duration="12166000" />
     </task>
     <servers />
   </component>
@@ -163,27 +165,28 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="283" key="GridCell.Tab.0.bottom" timestamp="1691379516698">
+    <state width="1877" height="284" key="GridCell.Tab.0.bottom" timestamp="1691431011232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1691379516698" />
-    <state width="1877" height="283" key="GridCell.Tab.0.center" timestamp="1691379516698">
+    <state width="1877" height="284" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1691431011232" />
+    <state width="1877" height="284" key="GridCell.Tab.0.center" timestamp="1691431011232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1691379516698" />
-    <state width="1877" height="283" key="GridCell.Tab.0.left" timestamp="1691379516698">
+    <state width="1877" height="284" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1691431011232" />
+    <state width="1877" height="284" key="GridCell.Tab.0.left" timestamp="1691431011232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1691379516698" />
-    <state width="1877" height="283" key="GridCell.Tab.0.right" timestamp="1691379516698">
+    <state width="1877" height="284" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1691431011232" />
+    <state width="1877" height="284" key="GridCell.Tab.0.right" timestamp="1691431011232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1691379516698" />
+    <state width="1877" height="284" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1691431011232" />
     <state width="981" height="371" key="GridCell.Tab.1.bottom" timestamp="1691342198988">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -252,5 +255,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="72" y="255" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040@0.0.1920.1040" timestamp="1691321074583" />
+    <state x="773" y="219" key="RiderGenerateDialog" timestamp="1691514418766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="773" y="219" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1691514418766" />
   </component>
 </project>

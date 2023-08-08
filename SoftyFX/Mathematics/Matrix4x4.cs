@@ -20,6 +20,8 @@ namespace SoftyFX.Mathematics
             };
         }
 
+        public float this[int row, int col] => M[row, col];
+
         public void Project(float near, float far, float fov, float aspectRatio)
         {
             var fovRad = (float) (1.0 / Math.Tan(fov * 0.5 / 180.0 * Math.PI));

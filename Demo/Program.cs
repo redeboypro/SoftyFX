@@ -17,7 +17,7 @@ namespace Demo
             var frameTime = 0.0f;
             var fps = 0;
 
-            Wavefront.Import("player.obj", out var mesh);
+            Wavefront.Import("bunny.obj", out var mesh);
 
             SoftyContext.InitDevice();
 
@@ -41,6 +41,7 @@ namespace Demo
                     fps = 0;
                 }
 
+                SoftyContext.UnlockDoubleBuffer();
                 SoftyContext.Clear();
 
                 angle += time.GetDeltaTime();
@@ -48,9 +49,10 @@ namespace Demo
 
                 translation.CreatePosition(new Vector3(0, 0, 5));
 
-                SoftyRenderer.DrawTriangles(mesh, rotation * translation * projection, Rgb.Red);
+                SoftyRenderer.DrawTriangles(mesh, Vector3.Zero, rotation * translation, projection, Rgb.Red, RenderMode.Solid);
+                SoftyContext.LockDoubleBuffer();
 
-                SoftyContext.WaitForFrame(300);
+                SoftyContext.WaitForFrame(10000);
                 time.End();
             }
 

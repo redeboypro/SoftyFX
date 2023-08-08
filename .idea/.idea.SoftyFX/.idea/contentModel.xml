@@ -20,13 +20,14 @@
           <e p="Wavefront.cs" t="Include" />
         </e>
         <e p="Graphics" t="Include">
+          <e p="Camera.cs" t="Include" />
           <e p="RenderMode.cs" t="Include" />
           <e p="SoftyRenderer.cs" t="Include" />
+          <e p="Triangle.cs" t="Include" />
         </e>
         <e p="Mathematics" t="Include">
           <e p="Matrix4x4.cs" t="Include" />
           <e p="RGB.cs" t="Include" />
-          <e p="Triangle.cs" t="Include" />
           <e p="Vector2Int.cs" t="Include" />
           <e p="Vector3.cs" t="Include" />
         </e>

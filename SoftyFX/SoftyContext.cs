@@ -17,6 +17,9 @@ namespace SoftyFX
         public static extern void WaitForFrame(int fps);
 
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FillPolygon(int[] vertices, int vertexCount, byte r, byte g, byte b);
+        
+        [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawPoint(int x, int y, byte r, byte g, byte b);
         
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -30,6 +33,12 @@ namespace SoftyFX
         
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetWindowSize(out int width, out int height);
+        
+        [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void UnlockDoubleBuffer();
+        
+        [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void LockDoubleBuffer();
 
         public static bool ReadyToQuit { get; private set; }
 
