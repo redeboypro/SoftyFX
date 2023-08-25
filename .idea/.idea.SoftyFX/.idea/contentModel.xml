@@ -7,6 +7,7 @@
       <e p="Demo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Demo.csproj" t="IncludeRecursive" />
+        <e p="DemoCanvas.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
@@ -19,14 +20,19 @@
         <e p="Common" t="Include">
           <e p="Wavefront.cs" t="Include" />
         </e>
+        <e p="Display" t="Include">
+          <e p="Display.cs" t="Include" />
+        </e>
         <e p="Graphics" t="Include">
           <e p="Camera.cs" t="Include" />
           <e p="RenderMode.cs" t="Include" />
+          <e p="RenderOptions.cs" t="Include" />
           <e p="SoftyRenderer.cs" t="Include" />
           <e p="Triangle.cs" t="Include" />
         </e>
         <e p="Mathematics" t="Include">
           <e p="Matrix4x4.cs" t="Include" />
+          <e p="Quaternion.cs" t="Include" />
           <e p="RGB.cs" t="Include" />
           <e p="Vector2Int.cs" t="Include" />
           <e p="Vector3.cs" t="Include" />

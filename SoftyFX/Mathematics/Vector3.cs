@@ -45,7 +45,7 @@ namespace SoftyFX.Mathematics
             }
         }
 
-        public Vector2Int Xy
+        public Vector2Int XYInt
         {
             get
             {
@@ -59,6 +59,14 @@ namespace SoftyFX.Mathematics
             {
                 return (float) Math.Sqrt(X * X + Y * Y + Z * Z);
             } 
+        }
+        
+        public float MagnitudeSquared
+        {
+            get
+            {
+                return X * X + Y * Y + Z * Z;
+            }
         }
 
         public void Normalize()
@@ -99,6 +107,11 @@ namespace SoftyFX.Mathematics
             return left;
         }
         
+        public static Vector3 operator -(Vector3 xyz)
+        {
+            return -xyz;
+        }
+
         public static Vector3 operator *(Vector3 left, Vector3 right)
         {
             left.X *= right.X;
@@ -113,9 +126,9 @@ namespace SoftyFX.Mathematics
             result.X = left.X * right.M[0, 0] + left.Y * right.M[1, 0] + left.Z * right.M[2, 0] + right.M[3, 0];
             result.Y = left.X * right.M[0, 1] + left.Y * right.M[1, 1] + left.Z * right.M[2, 1] + right.M[3, 1];
             result.Z = left.X * right.M[0, 2] + left.Y * right.M[1, 2] + left.Z * right.M[2, 2] + right.M[3, 2];
+            
             var w = left.X * right.M[0, 3] + left.Y * right.M[1, 3] + left.Z * right.M[2, 3] + right.M[3, 3];
-
-            if (w == 0.0f)
+            if (w is 0.0f)
             {
                 return result;
             }
@@ -125,6 +138,17 @@ namespace SoftyFX.Mathematics
             result.Z /= w;
 
             return result;
+        }
+        
+        public static Vector3 operator *(Quaternion quaternion, Vector3 vec)
+        {
+            var xyz = quaternion.XYZ;
+            var tmp1 = Cross(xyz, vec);
+            var tmp2 = vec * quaternion.W;
+            tmp1 += tmp2;
+            tmp2 = Cross(xyz, tmp1);
+            tmp2 *= 2;
+            return vec + tmp2;
         }
         
         public static Vector3 operator *(Vector3 vector, float factor)

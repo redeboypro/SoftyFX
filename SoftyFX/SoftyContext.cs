@@ -29,6 +29,12 @@ namespace SoftyFX
         public static extern void DrawBresenhamLine(int x1, int y1, int x2, int y2, byte r, byte g, byte b);
 
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool DrawBackgroundImage();
+        
+        [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool LoadBackgroundImage(string fileName);
+        
+        [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool GetCursorLocation(out int x, out int y);
         
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]

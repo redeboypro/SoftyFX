@@ -39,11 +39,14 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Common\Wavefront.cs" />
+        <Compile Include="Display\Display.cs" />
         <Compile Include="Graphics\Camera.cs" />
         <Compile Include="Graphics\RenderMode.cs" />
+        <Compile Include="Graphics\RenderOptions.cs" />
         <Compile Include="Graphics\SoftyRenderer.cs" />
         <Compile Include="Graphics\Triangle.cs" />
         <Compile Include="Mathematics\Matrix4x4.cs" />
+        <Compile Include="Mathematics\Quaternion.cs" />
         <Compile Include="Mathematics\Rgb.cs" />
         <Compile Include="Mathematics\Vector2Int.cs" />
         <Compile Include="Mathematics\Vector3.cs" />

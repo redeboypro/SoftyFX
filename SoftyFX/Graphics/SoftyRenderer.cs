@@ -7,10 +7,37 @@ namespace SoftyFX.Graphics
 {
     public static class SoftyRenderer
     {
-        public static void DrawTriangles(IEnumerable<Triangle> triangles, Vector3 eye, Matrix4x4 transformation, Matrix4x4 projection, Rgb color, RenderMode drawMode = RenderMode.Lines)
+        private static readonly bool[] RenderOptions =
         {
-            var depthSortedTriangles = new List<Triangle>();
+            //Back-face culling
+            true,
             
+            //Depth test
+            true,
+        };
+
+        private static List<Triangle> _trianglesBuffer;
+
+        public static void InitBuffer()
+        {
+            _trianglesBuffer = new List<Triangle>();
+        }
+
+        public static void Enable(RenderOptions option)
+        {
+            RenderOptions[(int) option] = true;
+        }
+        
+        public static void Disable(RenderOptions option)
+        {
+            RenderOptions[(int) option] = false;
+        }
+        
+        public static void DrawTriangles(IEnumerable<Triangle> triangles, Matrix4x4 transformation, Camera camera, RenderMode drawMode = RenderMode.Solid)
+        {
+            SoftyContext.GetWindowSize(out var width, out var height);
+            var isSolid = drawMode is RenderMode.Solid;
+
             foreach (var triangle in triangles)
             {
                 Triangle transformedTriangle;
@@ -18,26 +45,18 @@ namespace SoftyFX.Graphics
                 transformedTriangle.A = triangle.A * transformation;
                 transformedTriangle.B = triangle.B * transformation;
                 transformedTriangle.C = triangle.C * transformation;
-                
-                var edge1 = transformedTriangle[1] - transformedTriangle[0];
-                var edge2 = transformedTriangle[2] - transformedTriangle[0];
-                
-                Vector3 normal;
-                normal.X = edge1.Y * edge2.Z - edge1.Z * edge2.Y;
-                normal.Y = edge1.Z * edge2.X - edge1.X * edge2.Z;
-                normal.Z = edge1.X * edge2.Y - edge1.Y * edge2.X;
+                transformedTriangle.Color = triangle.Color;
 
-                var length = (float) Math.Sqrt(normal.X * normal.X + normal.Y * normal.Y + normal.Z * normal.Z);
-                normal /= length;
-
-                if (normal.X * (transformedTriangle.A.X - eye.X) +
-                    normal.Y * (transformedTriangle.A.Y - eye.Y) +
-                    normal.Z * (transformedTriangle.A.Z - eye.Z) < 0)
+                if (RenderOptions[0] && !isSolid || CullFace(transformedTriangle, camera.From))
                 {
-                    transformedTriangle.A *= projection;
-                    transformedTriangle.B *= projection;
-                    transformedTriangle.C *= projection;
-                    
+                    transformedTriangle.A *= camera.ViewMatrix;
+                    transformedTriangle.B *= camera.ViewMatrix;
+                    transformedTriangle.C *= camera.ViewMatrix;
+
+                    transformedTriangle.A *= camera.ProjectionMatrix;
+                    transformedTriangle.B *= camera.ProjectionMatrix;
+                    transformedTriangle.C *= camera.ProjectionMatrix;
+
                     transformedTriangle.A.X += 1.0f;
                     transformedTriangle.A.Y += 1.0f;
 
@@ -47,8 +66,6 @@ namespace SoftyFX.Graphics
                     transformedTriangle.C.X += 1.0f;
                     transformedTriangle.C.Y += 1.0f;
 
-                    SoftyContext.GetWindowSize(out var width, out var height);
-
                     transformedTriangle.A.X *= 0.5f * width;
                     transformedTriangle.A.Y *= 0.5f * height;
 
@@ -57,24 +74,41 @@ namespace SoftyFX.Graphics
 
                     transformedTriangle.C.X *= 0.5f * width;
                     transformedTriangle.C.Y *= 0.5f * height;
-                    
-                    depthSortedTriangles.Add(transformedTriangle);
+
+                    _trianglesBuffer.Add(transformedTriangle);
                 }
             }
             
-            depthSortedTriangles.Sort((triangle1, triangle2) => triangle1.CompareTo(triangle2));
-
-            foreach (var triangle in depthSortedTriangles)
+            if (RenderOptions[1] && isSolid)
+            {
+                _trianglesBuffer.Sort((triangle1, triangle2) => triangle1.CompareTo(triangle2));
+            }
+            
+            foreach (var triangle in _trianglesBuffer)
             {
                 DrawPolygon(new[]
                 {
-                    triangle.A.Xy,
-                    triangle.B.Xy,
-                    triangle.C.Xy
-                }, color, drawMode);
+                    triangle.A.XYInt,
+                    triangle.B.XYInt,
+                    triangle.C.XYInt
+                }, triangle.Color, drawMode);
             }
+            _trianglesBuffer.Clear();
         }
-        
+
+        private static bool CullFace(Triangle triangle, Vector3 eye)
+        {
+            var edge1 = triangle[1] - triangle[0];
+            var edge2 = triangle[2] - triangle[0];
+
+            var normal = Vector3.Cross(edge1, edge2);
+            normal.Normalize();
+
+            var cameraRay = triangle[0] - eye;
+
+            return Vector3.Dot(normal, cameraRay) < 0;
+        }
+
         public static void DrawPolygon(Vector2Int[] vertices, Rgb color, RenderMode drawMode = RenderMode.Lines)
         {
             switch (drawMode)
@@ -97,6 +131,7 @@ namespace SoftyFX.Graphics
                     var count = vertices.Length * 2;
                     var resultVertices = new int[count];
                     var vertexIndex = 0;
+                    
                     for (var i = 1; i < count; i += 2)
                     {
                         var vertex = vertices[vertexIndex];

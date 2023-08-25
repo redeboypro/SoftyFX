@@ -34,16 +34,20 @@ namespace SoftyFX.Common
                         var x = float.Parse(data[1], NumberStyles.Any, CultureInfo.InvariantCulture);
                         var y = float.Parse(data[2], NumberStyles.Any, CultureInfo.InvariantCulture);
                         var z = float.Parse(data[3], NumberStyles.Any, CultureInfo.InvariantCulture);
+                        
                         vertexList.Add(new Vector3(x, y, z));
                     }
-                    
-                    if (line.StartsWith(FacePrefix))
+
+                    if (!line.StartsWith(FacePrefix))
                     {
-                        var a = int.Parse(data[1]) - 1;
-                        var b = int.Parse(data[2]) - 1;
-                        var c = int.Parse(data[3]) - 1;
-                        triangleList.Add(new Triangle(vertexList[a], vertexList[b], vertexList[c]));
+                        continue;
                     }
+                    
+                    var a = int.Parse(data[1]) - 1;
+                    var b = int.Parse(data[2]) - 1;
+                    var c = int.Parse(data[3]) - 1;
+                    
+                    triangleList.Add(new Triangle(vertexList[a], vertexList[b], vertexList[c]));
                 }
             }
 

@@ -5,17 +5,26 @@ namespace SoftyFX.Graphics
 {
     public struct Triangle : IComparable<Triangle>
     {
+        public static readonly Triangle Nullable = new Triangle
+        {
+            A = Vector3.Zero,
+            B = Vector3.Zero,
+            C = Vector3.Zero,
+        };
+        
         public Vector3 A;
         public Vector3 B;
         public Vector3 C;
+        public Rgb Color;
 
         public Triangle(Vector3 a, Vector3 b, Vector3 c)
         {
             A = a;
             B = b;
             C = c;
+            Color = Rgb.White;
         }
-        
+
         public Vector3 this[int index]
         {
             get
