@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using SoftyFX.Graphics;
+using SoftyFX.Graphics.Geometry;
 using SoftyFX.Mathematics;
 
-namespace SoftyFX.Common
+namespace Demo.Common
 {
     public static class Wavefront
     {

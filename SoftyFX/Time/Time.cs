@@ -19,7 +19,7 @@ namespace SoftyFX.Time
 
         public float DeltaTime { get; private set; }
         
-        public float FramesPerSecond { get; private set; }
+        public int FramesPerSecond { get; private set; }
 
         public void Begin()
         {

@@ -1,6 +1,6 @@
 ﻿using SoftyFX.Mathematics;
 
-namespace SoftyFX.Graphics
+namespace SoftyFX.Graphics.World
 {
     public class Camera
     {
@@ -19,8 +19,8 @@ namespace SoftyFX.Graphics
             ViewMatrix = new Matrix4x4(Matrix4x4.Identity);
             ProjectionMatrix = new Matrix4x4(Matrix4x4.Identity);
             
-            _from = Vector3.Zero;
-            _to = Vector3.Front;
+            _from = new Vector3(0, 0, -100);
+            _to = Vector3.Zero;
             _up = Vector3.Up;
 
             _aspectRatio = aspectRatio;
@@ -128,7 +128,8 @@ namespace SoftyFX.Graphics
 
         private void UpdateViewMatrix()
         {
-            ViewMatrix.LookAt(_from, _to, _up);
+            ViewMatrix.PointAt(_from, _to, _up);
+            ViewMatrix.Inverse();
         }
         
         private void UpdateProjectionMatrix()

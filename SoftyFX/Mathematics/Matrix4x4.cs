@@ -120,9 +120,37 @@ namespace SoftyFX.Mathematics
             M[2, 2] = scale.Z;
         }
 
-        public void LookAt(Vector3 position, Vector3 target, Vector3 up)
+        public void LookAt(Vector3 eye, Vector3 target, Vector3 up)
         {
-            var front = target - position;
+            var front = eye - target;
+            front.Normalize();
+
+            var right = Vector3.Cross(up, front);
+            right.Normalize();
+
+            var top = Vector3.Cross(front, right);
+            top.Normalize();
+
+            M = new[,]
+            {
+                {right.X, top.X, front.X, 0.0f},
+
+                {right.Y, top.Y, front.Y, 0.0f},
+
+                {right.Z, top.Z, front.Z, 0.0f},
+
+                {
+                    -((right.X * eye.X) + (right.Y * eye.Y) + (right.Z * eye.Z)), 
+                    -((top.X * eye.X) + (top.Y * eye.Y) + (top.Z * eye.Z)),
+                    -((front.X * eye.X) + (front.Y * eye.Y) + (front.Z * eye.Z)),
+                    1.0f
+                }
+            };
+        }
+        
+        public void PointAt(Vector3 eye, Vector3 target, Vector3 up)
+        {
+            var front = target - eye;
             front.Normalize();
 
             var offset = front * Vector3.Dot(up, front);
@@ -138,7 +166,7 @@ namespace SoftyFX.Mathematics
 
                 {front.X, front.Y, front.Z, 0.0f},
 
-                {position.X, position.Y, position.Z, 1.0f}
+                {eye.X, eye.Y, eye.Z, 1.0f}
             };
         }
 
@@ -208,6 +236,19 @@ namespace SoftyFX.Mathematics
         public Vector3 ExtractScale()
         {
             return new Vector3(GetRowLength(0), GetRowLength(1), GetRowLength(2));
+        }
+
+        public void Inverse()
+        {
+            var result = new float[4, 4];
+            result[0, 0] = M[0, 0]; result[0, 1] = M[1, 0]; result[0, 2] = M[2, 0]; result[0, 3] = 0.0f;
+            result[1, 0] = M[0, 1]; result[1, 1] = M[1, 1]; result[1, 2] = M[2, 1]; result[1, 3] = 0.0f;
+            result[2, 0] = M[0, 2]; result[2, 1] = M[1, 2]; result[2, 2] = M[2, 2]; result[2, 3] = 0.0f;
+            result[3, 0] = -(M[3, 0] * result[0, 0] + M[3, 1] * result[1, 0] + M[3, 2] * result[2, 0]);
+            result[3, 1] = -(M[3, 0] * result[0, 1] + M[3, 1] * result[1, 1] + M[3, 2] * result[2, 1]);
+            result[3, 2] = -(M[3, 0] * result[0, 2] + M[3, 1] * result[1, 2] + M[3, 2] * result[2, 2]);
+            result[3, 3] = 1.0f;
+            M = result;
         }
 
         private float GetRowLength(int row)

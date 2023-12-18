@@ -1,7 +1,7 @@
 ﻿using System;
 using SoftyFX.Mathematics;
 
-namespace SoftyFX.Graphics
+namespace SoftyFX.Graphics.Geometry
 {
     public struct Triangle : IComparable<Triangle>
     {
@@ -22,7 +22,7 @@ namespace SoftyFX.Graphics
             A = a;
             B = b;
             C = c;
-            Color = Rgb.White;
+            Color = Rgb.Gray;
         }
 
         public Vector3 this[int index]

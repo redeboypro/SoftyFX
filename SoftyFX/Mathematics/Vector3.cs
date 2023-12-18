@@ -7,8 +7,11 @@ namespace SoftyFX.Mathematics
         public static readonly Vector3 Zero = new Vector3(0, 0, 0);
         public static readonly Vector3 One = new Vector3(1, 1, 1);
         public static readonly Vector3 Right = new Vector3(1, 0, 0);
+        public static readonly Vector3 Left = new Vector3(-1, 0, 0);
         public static readonly Vector3 Up = new Vector3(0, 1, 0);
+        public static readonly Vector3 Down = new Vector3(0, -1, 0);
         public static readonly Vector3 Front = new Vector3(0, 0, 1);
+        public static readonly Vector3 Back = new Vector3(0, 0, -1);
 
         public float X;
         public float Y;
@@ -75,6 +78,21 @@ namespace SoftyFX.Mathematics
             X *= scale;
             Y *= scale;
             Z *= scale;
+        }
+        
+        public bool IsInsideViewFrustum()
+        {
+            return Math.Abs(X) <= 1 &&
+                   Math.Abs(Y) <= 1 &&
+                   Math.Abs(Z) <= 1;
+        }
+        
+        public static Vector3 Lerp(Vector3 a, Vector3 b, float blend)
+        {
+            a.X = blend * (b.X - a.X) + a.X;
+            a.Y = blend * (b.Y - a.Y) + a.Y;
+            a.Z = blend * (b.Z - a.Z) + a.Z;
+            return a;
         }
 
         public static float Dot(Vector3 left, Vector3 right)

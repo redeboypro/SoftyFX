@@ -5,7 +5,7 @@ namespace SoftyFX
     public static class SoftyContext
     {
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void InitDevice();
+        public static extern void InitDevice(int width, int height);
         
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ReleaseDevice();
@@ -27,12 +27,15 @@ namespace SoftyFX
         
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawBresenhamLine(int x1, int y1, int x2, int y2, byte r, byte g, byte b);
+        
+        [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool DrawTextBlock([MarshalAs(UnmanagedType.LPWStr)] string text, int minX, int minY, int maxX, int maxY, byte r, byte g, byte b);
 
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool DrawBackgroundImage();
         
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LoadBackgroundImage(string fileName);
+        public static extern bool LoadBackgroundImage([MarshalAs(UnmanagedType.LPWStr)] string fileName);
         
         [DllImport("Softy32.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool GetCursorLocation(out int x, out int y);

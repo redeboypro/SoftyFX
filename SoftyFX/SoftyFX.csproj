@@ -38,13 +38,16 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Common\Wavefront.cs" />
         <Compile Include="Display\Display.cs" />
-        <Compile Include="Graphics\Camera.cs" />
+        <Compile Include="Display\Input.cs" />
+        <Compile Include="Graphics\Geometry\Mesh.cs" />
+        <Compile Include="Graphics\Geometry\Polygon2D.cs" />
+        <Compile Include="Graphics\Geometry\Triangle.cs" />
         <Compile Include="Graphics\RenderMode.cs" />
         <Compile Include="Graphics\RenderOptions.cs" />
+        <Compile Include="Graphics\Shaders\Shader.cs" />
         <Compile Include="Graphics\SoftyRenderer.cs" />
-        <Compile Include="Graphics\Triangle.cs" />
+        <Compile Include="Graphics\World\Camera.cs" />
         <Compile Include="Mathematics\Matrix4x4.cs" />
         <Compile Include="Mathematics\Quaternion.cs" />
         <Compile Include="Mathematics\Rgb.cs" />

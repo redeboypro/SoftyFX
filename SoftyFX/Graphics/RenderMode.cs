@@ -4,7 +4,6 @@
     {
         Points,
         Lines,
-        BresenhamLines,
         Solid
     }
 }
